@@ -5,8 +5,11 @@ services:
       context: ./web_server
       dockerfile: Dockerfile
       args:
+        - EMAIL=${EMAIL}
+        - HOST_WEB_DOMAIN=${HOST_WEB_DOMAIN}
         - HOST_APP_DOMAIN=${HOST_APP_DOMAIN}
         - EXPORT_APP_HTTP_PORT=${EXPORT_APP_HTTP_PORT}
+        - NAIVE_WEB_HTTP_PORT=${NAIVE_WEB_HTTP_PORT}
     image: ${DHUB_USER}/hp_nginx_web_srv:${WEB_SRV_IMG_VER}
     container_name: hp_nginx_web_srv_con
     environment:
@@ -25,7 +28,8 @@ services:
     volumes:
       # Binding
       - ./web_server/html:/usr/share/nginx/html
-      - ./web_server/log/nginx.conf.log:/etc/nginx/nginx.conf
+      - ./web_server/diagnostic/nginx/nginx.conf.log:/etc/nginx/nginx.conf
+      - ./web_server/diagnostic/letsencrypt:/etc/letsencrypt
 
     # restart: unless-stopped
 

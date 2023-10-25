@@ -39,25 +39,27 @@ http {
     # autoindex on;
 
     server {
-        server_name  {{HOST_WEB_DOMAIN}};
+        server_name  home.tiny-tank.jp;
         root         /usr/share/nginx/html;
         charset UTF-8;
-        client_max_body_size {{MAX_REQUEST_BODY_SIZE}}; # 1リクエスト *MBまでを上限に受け取り許可
+        client_max_body_size 100M; # 1リクエスト *MBまでを上限に受け取り許可
 
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
-	    listen [::]:{{NAIVE_WEB_HTTPS_PORT}} ssl ipv6only=on; # managed by Certbot
-        listen {{NAIVE_WEB_HTTPS_PORT}} ssl; # managed by Certbot
+	    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+        listen 443 ssl; # managed by Certbot
 
-        ssl_certificate /etc/letsencrypt/live/{{HOST_WEB_DOMAIN}}/fullchain.pem; # managed by Certbot
-        ssl_certificate_key /etc/letsencrypt/live/{{HOST_WEB_DOMAIN}}/privkey.pem; # managed by Certbot
-        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+        if ($host != localhost) {
+            ssl_certificate /etc/letsencrypt/live/home.tiny-tank.jp/fullchain.pem; # managed by Certbot
+            ssl_certificate_key /etc/letsencrypt/live/home.tiny-tank.jp/privkey.pem; # managed by Certbot
+            include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+            ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-        # Let's Encripto for issuring SSL certificate and private key
-        location /.well-known/acme-challenge {
-            root /usr/share/nginx/html;
+            # Let's Encripto for issuring SSL certificate and private key
+            location /.well-known/acme-challenge {
+                root /usr/share/nginx/html;
+            }
         }
         
 
@@ -80,7 +82,7 @@ http {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             
-            proxy_pass {{APP_HTTP_SERVER}};
+            proxy_pass http://app_server:80;
         }
 
         error_page 404 /404.html;
@@ -95,18 +97,41 @@ http {
 
     server {
         
-        # HTTPSサーバーにリダイレクト
-        if ($host = {{HOST_WEB_DOMAIN}}) {  
-            return 301 https://$host$request_uri;
-        } # managed by Certbot
+        if ($host != localhost) {
+            # ローカルホスト出ない場合, HTTPSサーバーにリダイレクト
+            if ($host = home.tiny-tank.jp) {  
+                return 301 https://$host$request_uri;
+            } # managed by Certbot
 
-        listen       {{NAIVE_WEB_HTTP_PORT}}
-        listen       [::]:{{NAIVE_WEB_HTTP_PORT}};
-        #server_name  {{HOST_WEB_DOMAIN}};
+            return 404; # managed by Certbot
+        }
+
+        listen       80
+        listen       [::]:80;
+        #server_name  home.tiny-tank.jp localhost;
         server_name nginx;
         charset UTF-8;
-        client_max_body_size {{MAX_REQUEST_BODY_SIZE}}; # 1リクエスト *MBまでを上限に受け取り許可
+        client_max_body_size 100M; # 1リクエスト *MBまでを上限に受け取り許可
 
-        return 404; # managed by Certbot
+        location / {
+            root /usr/share/nginx/html;
+            index index.html index.htm;
+        }
+
+        location /home/ {
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            proxy_pass http://app_server:80;
+        }
+
+        error_page 404 /404.html;
+        location = /404.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
     }
 }

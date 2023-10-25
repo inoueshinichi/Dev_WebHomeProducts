@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- 文字セット -->
+    <meta charset="UTF-8">
+
+    <!-- レイアウト -->
+    <meta name="viewport" content="width=device-width initial-scale=1">
+
+    <!-- Webページの説明 -->
+    <title>Kissa official website</title>
+    <meta name="description" content="自家焙煎したこだわりのコーヒーと、
+    思わず長居したくなるような居心地の良い空間を提供するカフェ「KISSA」のウェブサイトです。">
+    <meta name="keywords" content="Top,Concept,Menu,Shop,Access">
+
+    <!-- OGP設定 -->
+    <meta property="og:local" content="ja_JP" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="サンプルサイトKissa" />
+    <meta property="og:description" content="HTML&CSSの学習用サンプルページ" />
+    <meta property="og:url" content="http://localhost:80/index.html" />
+    <meta property="og:site_name" content="サンプルサイトKissa" />
+    <meta property="og:image" content="http:/localhost:80/kissa/static/images/ogp/ogp_img.png" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- jQuery JS -->
+    <!--<script src="https://code.jquery.com/jquery-3.7.0.js"></script>-->
+
+    <!-- Vue.js CDN -->
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+
+    <!-- React.js CDN -->
+    <!-- https://ja.legacy.reactjs.org/docs/cdn-links.html -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> -->
+
+    <!-- Local JavaScript -->
+    <script src="./static/js/toggle-menu.js"></script>
+
+    <!-- PC Icon -->
+    <link rel="icon" type="image/png" href="/kissa/static/images/icon/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/kissa/static/images/icon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/kissa/static/images/icon/favicon-96x96.png" sizes="96x96" />
+
+    <!-- Android & iPhone Icon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/kissa/static/images/icon/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/kissa/static/images/icon/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/kissa/static/images/icon/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/kissa/static/images/icon/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/kissa/static/images/icon/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/kissa/static/images/icon/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/kissa/static/images/icon/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/kissa/static/images/icon/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/kissa/static/images/icon/apple-touch-icon-180x180.png" />
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="./static/css/common.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:ital,wght@1,300&display=swap"
+        rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="./index.html" class="header-logo">
+                <img src="./static/images/common/logo-header.png" alt="KISSA">
+            </a>
+            <button class="toggle-menu-button"></button>
+            <div class="header-site-menu">
+                <nav class="site-menu">
+                    <ul>
+                        <li><a href="./concept.html">CONCEPT</a></li>
+                        <li><a href="./menu.html">MENU</a></li>
+                        <li><a href="./shop.html">SHOP</a></li>
+                        <li><a href="./access.html">ACCESS</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- フルスクリーンレイアウト -->
+        <div class="first-view">
+            <div class="first-view-text">
+                <h1>Imagination will <br>take you everywhere.</h1>
+                <p>コーヒーを待つ時間も、特別なひとときになる。</p>
+            </div>
+        </div><!-- first-view -->
+        <div class="lead">
+            <p>「想像力はあなたをどこにでも連れて行ってくれる」<br>注文を待つ間に広げた、一冊の本の中に見つけた言葉。<br>
+                ゆったり流れる時間の中で、想像をふくらませる楽しさを思い出す。<br>そんな時間を過ごすとき、
+                おいしいコーヒーがあると嬉しい。
+            </p>
+            <div class="link-button-area">
+                <a class="link-button" href="./concept.html">CONCEPT</a>
+            </div>
+        </div><!-- lead -->
+
+        <!-- フレックスレイアウト -->
+        <div class="recommended">
+            <h2>RECOMENDED</h2>
+            <ul class="item-list">
+                <li>
+                    <img src="./static/images/index/img-item01.jpg" alt="カフェラテの商品画像" />
+                    <dl>
+                        <dt>カフェラテ</dt>
+                        <dd>エスプレッソとミルク、この組み合わせに勝るものはなかなか見つかりません。ホッとしたいとき、やっぱりラテが欲しくなる。</dd>
+                    </dl>
+                    <p class="price">¥460</p>
+                </li>
+                <li>
+                    <img src="./static/images/index/img-item02.jpg" alt="レーズンバターサンドの商品画像" />
+                    <dl>
+                        <dt>レーズンバターサンド</dt>
+                        <dd>コーヒーに合うお菓子を追求して生まれた当店の大人気メニュー。数量・季節ともに限定のため、見つけたらぜひお試しを。</dd>
+                    </dl>
+                    <p class="price">¥480</p>
+                </li>
+                <li>
+                    <img src="./static/images/index/img-item03.jpg" alt="アメリカーノの商品画像" />
+                    <dl>
+                        <dt>アメリカーノ</dt>
+                        <dd>浅煎りの豆をこだわりの配合でブレンドした、スッキリと爽やかな飲み口の当店看板メニュー。ホットでもアイスでも。</dd>
+                    </dl>
+                    <p class="price">¥420</p>
+                </li>
+                <li>
+                    <img src="./static/images/index/img-item04.jpg" alt="レモネードの商品画像" />
+                    <dl>
+                        <dt>レモネード</dt>
+                        <dd>瀬戸内海に浮かぶ小島で、オーナー自らが栽培したとっておきのレモンを、たっぷりと使った自慢のレモネードです。</dd>
+                    </dl>
+                    <p class="price">¥420</p>
+                </li>
+                <li>
+                    <img src="./static/images/index/img-item05.jpg" alt="ホットドッグ - チリの商品画像" />
+                    <dl>
+                        <dt>ホットドッグ - チリ</dt>
+                        <dd>ちょっと小腹が空いたとき、あると嬉しいホットドッグ。特製チリソースとチーズをかければ、もう言葉はいりません。</dd>
+                    </dl>
+                    <p class="price">¥540</p>
+                </li>
+            </ul>
+            <div class="link-button-area">
+                <a class="link-button" href="./menu.html">MENU</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <nav class="site-menu">
+            <ul>
+                <li><a href="./concept.html">CONCEPT</a></li>
+                <li><a href="./menu.html">MENU</a></li>
+                <li><a href="./shop.html">SHOP</a></li>
+                <li><a href="./access.html">ACCESS</a></li>
+            </ul>
+        </nav>
+        <a href="./index.html" class="footer-logo">
+            <img src="./static/images/common/logo-footer.png" alt="KISSA">
+        </a>
+        <p class="footer-tel">TEL ***-****-****</p>
+        <p class="footer-time">OPEN ***-*** **:**-**:**</p>
+        <p class="copyright"><small>&copy;Shinichi Inoue</small></p>
+    </footer>
+
+    <!-- local JS -->
+    <!-- <script src="your/path/to/**.js"></script> -->
+</body>
+
+</html>
