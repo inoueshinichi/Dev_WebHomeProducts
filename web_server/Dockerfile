@@ -18,10 +18,10 @@ ARG EMAIL
 LABEL author=$EMAIL
 
 # Refresh repository
-RUN apt update && apt upgrade -y
+RUN apt-get update && apt-get upgrade -y
 
 # Install Certbot
-RUN apt install -y certbot 
+RUN apt-get install -y certbot 
 
 #  Depoly
 ARG HOST_WEB_DOMAIN
