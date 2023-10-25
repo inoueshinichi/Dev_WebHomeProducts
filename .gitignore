@@ -1,0 +1,8 @@
+
+
+
+# Docker compose
+/.env
+
+# Web server
+web_server/log/
