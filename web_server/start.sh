@@ -13,9 +13,31 @@ sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.c
 # echo "[Check \$MAX_REQUEST_BODY_SIZE] $MAX_REQUEST_BODY_SIZE"
 
 
+
+
+
+# Let's EncryptでSSL証明書(デジタル署名＋公開鍵)を発行. CertbotコマンドによるSSL証明書を取得. 
+# nginxは起動していないので、standaloneモードで実行.
+# SSL証明書の取得時に"/usr/share/nginx/html/.well-known/acme-challenge/"にアクセスする必要がある.# https://qiita.com/mttt/items/aa2ba3a0677a803d0436
+# https://qiita.com/s-katsumata/items/629222b24113d7a49b79
+
+# nginx起動
+# nginx
+
+# certbot certonly --webroot -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
+certbot certonly --standalone -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
+
+# SSL証明書の更新シミュレーション(本番は、cronで定期実行させる)
+certbot renew --dry-run
+certbot renew
+
+# nginxを停止する
+# nginx -s stop # ←直ちに停止
+# nginx –s quit	←リクエスト処理が完了した後停止
+
 # 設定ファイルをログで確認
 echo '[Check Nginx configuration file]'
 cat /etc/nginx/nginx.conf
 
-# PID1としてNginxを起動する
+# PID1としてnginxを起動する
 exec nginx -g "daemon off;"

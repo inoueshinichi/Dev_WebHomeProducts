@@ -10,9 +10,11 @@ services:
         - HOST_APP_DOMAIN=${HOST_APP_DOMAIN}
         - EXPORT_APP_HTTP_PORT=${EXPORT_APP_HTTP_PORT}
         - NAIVE_WEB_HTTP_PORT=${NAIVE_WEB_HTTP_PORT}
+        - NAIVE_WEB_HTTPS_PORT=${NAIVE_WEB_HTTPS_PORT}
     image: ${DHUB_USER}/hp_nginx_web_srv:${WEB_SRV_IMG_VER}
     container_name: hp_nginx_web_srv_con
     environment:
+      EMAIL: ${EMAIL}
       HOST_WEB_DOMAIN: ${HOST_WEB_DOMAIN}
       HOST_APP_DOMAIN: ${HOST_APP_DOMAIN}
       NAIVE_WEB_HTTP_PORT: ${NAIVE_WEB_HTTP_PORT}

@@ -5,4 +5,5 @@
 /.env
 
 # Web server
-web_server/log/
+web_server/diagnostic
+
