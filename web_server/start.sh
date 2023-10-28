@@ -7,12 +7,11 @@ sed -e "s/{{NAIVE_WEB_HTTP_PORT}}/$NAIVE_WEB_HTTP_PORT/g" /etc/nginx/nginx.conf.
 # echo "[Check \$NAIVE_WEB_HTTP_PORT] $NAIVE_WEB_HTTP_PORT"
 sed -e "s/{{NAIVE_WEB_HTTPS_PORT}}/$NAIVE_WEB_HTTPS_PORT/g" /etc/nginx/nginx.conf.tmp2 > /etc/nginx/nginx.conf.tmp3
 # echo "[Check \$NAIVE_WEB_HTTPS_PORT] $NAIVE_WEB_HTTPS_PORT"
-sed -e "s^{{APP_HTTP_SERVER}}^$APP_HTTP_SERVER^g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
-# echo "[Check \$APP_HTTP_SERVER] $APP_HTTP_SERVER"
-sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf
+sed -e "s^{{WSGI_HTTP_SERVER}}^$WSGI_HTTP_SERVER^g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
+# echo "[Check \$WSGI_HTTP_SERVER] $WSGI_HTTP_SERVER"
+sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf.tmp5
 # echo "[Check \$MAX_REQUEST_BODY_SIZE] $MAX_REQUEST_BODY_SIZE"
-
-
+sed -e "s^{{WSGI_UNIX_SOCKET}}^$WSGI_UNIX_SOCKET^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf
 
 
 
@@ -25,7 +24,12 @@ sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.c
 # nginx
 
 # certbot certonly --webroot -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
+
+# SSL証明証の発行. Webサーバーにインストールは、まだしない.
 certbot certonly --standalone -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
+
+# SSL証明書のインストール?
+certbot enhance --standalone -w /usr/share/nginx/html --non-interactive
 
 # SSL証明書の更新シミュレーション(本番は、cronで定期実行させる)
 certbot renew --dry-run

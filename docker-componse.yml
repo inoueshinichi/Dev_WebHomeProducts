@@ -20,11 +20,13 @@ services:
       NAIVE_WEB_HTTP_PORT: ${NAIVE_WEB_HTTP_PORT}
       NAIVE_WEB_HTTPS_PORT: ${NAIVE_WEB_HTTPS_PORT}
       MAX_REQUEST_BODY_SIZE: ${MAX_REQUEST_BODY_SIZE}
+      WSGI_UNIX_SOCKET: ${WSGI_UNIX_SOCKET}
+    # restart: unless-stopped
     # depends_on:
     #   - app_server
     ports:
-      - ${EXPORT_WEB_HTTP_PORT}:80
-      - ${EXPORT_WEB_HTTPS_PORT}:443
+      - ${EXPORT_WEB_HTTP_PORT}:${NAIVE_WEB_HTTP_PORT}
+      - ${EXPORT_WEB_HTTPS_PORT}:${NAIVE_WEB_HTTPS_PORT}
     networks:
       - home_products_net
     volumes:
@@ -32,8 +34,41 @@ services:
       - ./web_server/html:/usr/share/nginx/html
       - ./web_server/diagnostic/nginx/nginx.conf.log:/etc/nginx/nginx.conf
       - ./web_server/diagnostic/letsencrypt:/etc/letsencrypt
+      - gunicorn:${GUNICORN_BIND_DIR}
 
-    # restart: unless-stopped
+  # app_server:
+  #   build: 
+  #     context: ./app_server
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - NAIVE_APP_HTTP_PORT=${NAIVE_APP_HTTP_PORT}
+  #       - APP_STOPSIGNAL=${APP_STOPSIGNAL}
+  #       - WSGI_UNIX_SOCKET=${WSGI_UNIX_SOCKET}
+  #       - DJANGO_PROJECT_DIRECTORY=${DJANGO_PROJECT_DIRECTORY}
+  #       - DJANGO_PROJECT_NAME=${DJANGO_PROJECT_NAME}
+  #   image: ${DHUB_USER}/hp_app_srv:${APP_SRV_IMG_VER}
+  #   container_name: hp_app_srv_con
+  #   command: /bin/sh -c "tail -f /dev/null"
+  #   # command: python ${DJANGO_PROJECT_DIRECTORY}/${DJANGO_PROJECT_NAME}/manage.py runserver 8000
+  #   tty: true
+  #   environment:
+  #     EMAIL: ${EMAIL}
+  #     HOST_DB_DOMAIN: ${HOST_DB_DOMAIN}
+  #     EXPORT_DB_PORT: ${EXPORT_DB_PORT}
+  #     DB_USER: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     DJANGO_PROJECT_DIRECTORY: ${DJANGO_PROJECT_DIRECTORY}
+  #     DJANGO_PROJECT_NAME: ${DJANGO_PROJECT_NAME}
+  #     DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+  #   # restart: unless-stopped
+  #   ports:
+  #     - ${EXPORT_APP_HTTP_PORT}:${NAIVE_APP_HTTP_PORT}
+  #   networks:
+  #     - home_products_net
+  #   volumes:
+  #     # Binding
+  #     - ./app_server/src:/home_products_app
+  #     - gunicorn:${GUNICORN_BIND_DIR}
 
 
 networks:
@@ -41,6 +76,8 @@ networks:
     driver: bridge
 
 volumes:
+  gunicorn:
+    driver: local
   home_products_db:
     driver: local
       
