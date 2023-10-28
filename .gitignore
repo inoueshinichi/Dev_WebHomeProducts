@@ -7,3 +7,6 @@
 # Web server
 web_server/diagnostic
 
+__pycache__/
+*.py[cod]
+*$py.class
