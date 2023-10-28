@@ -44,72 +44,7 @@ http {
     }
 
     server {
-        server_name  home.tiny-tank.jp;
-        listen 443 ssl; # IPv4
-        listen [::]:443 ssl ipv6only=on; # IPv6
-        root         /usr/share/nginx/html;
-        charset UTF-8;
-        client_max_body_size 100M; # 1リクエスト *MBまでを上限に受け取り許可
-
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
-
-        #ssl_certificate /etc/letsencrypt/live/home.tiny-tank.jp/fullchain.pem;
-        #ssl_certificate_key /etc/letsencrypt/live/home.tiny-tank.jp/privkey.pem;
-
-        #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-        #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
-        # Let's Encripto for issuring SSL certificate and private key
-        location /.well-known/acme-challenge/ {
-            root /usr/share/nginx/html;
-        }
         
-        #location /static {
-        #  alias /usr/share/nginx/html/static;
-        #}
-
-        #location /media {
-        #  alias /usr/share/nginx/html/media;
-        #}
-
-	
-        location / {
-            root /usr/share/nginx/html;
-            index index.html;
-        }
-
-        #location / {
-        #    try_files $uri @gunicorn;
-        #}
-
-        #location @gunicorn {
-        #    proxy_set_header Host $http_host;
-        #    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        #    proxy_set_header X-Forwarded-Proto $scheme;
-        #    
-        #    #proxy_pass {{APP_HTTP_SERVER}};
-        #    proxy_pass http://gunicorn-django;
-        #}
-
-        error_page 404 /404.html;
-        location = /404.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-        location = /50x.html {
-        }
-        
-        return 404; # managed by Certbot
-    }
-
-    server {
-        
-        # HTTPSサーバーにリダイレクト
-        #if ($host = home.tiny-tank.jp) {  
-        #    return 301 https://$host$request_uri;
-        #} # managed by Certbot
-
         server_name  home.tiny-tank.jp;
         listen       80; # IPv4
         listen       [::]:80; # IPv6
@@ -120,9 +55,12 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
-        #return 404; # managed by Certbot
-
         location / {
+            root /usr/share/nginx/html;
+            index index.html;
+        }
+
+        location /home {
             try_files $uri @gunicorn;
         }
 
