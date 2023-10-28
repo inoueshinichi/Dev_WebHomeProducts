@@ -26,14 +26,14 @@ sed -e "s^{{WSGI_UNIX_SOCKET}}^$WSGI_UNIX_SOCKET^g" /etc/nginx/nginx.conf.tmp5 >
 # certbot certonly --webroot -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
 
 # SSL証明証の発行. Webサーバーにインストールは、まだしない.
-certbot certonly --standalone -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
+# certbot certonly --standalone -w /usr/share/nginx/html -d $HOST_WEB_DOMAIN -m $EMAIL --agree-tos --non-interactive
 
 # SSL証明書のインストール?
-certbot enhance --standalone -w /usr/share/nginx/html --non-interactive
+# certbot enhance --standalone -w /usr/share/nginx/html --non-interactive
 
 # SSL証明書の更新シミュレーション(本番は、cronで定期実行させる)
-certbot renew --dry-run
-certbot renew
+# certbot renew --dry-run
+# certbot renew
 
 # nginxを停止する
 # nginx -s stop # ←直ちに停止
