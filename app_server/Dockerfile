@@ -70,4 +70,5 @@ WORKDIR /$DJANGO_PROJECT_DIRECTORY/$DJANGO_PROJECT_NAME
 # https://qiita.com/str416yb/items/7324b99b9f05b9089b80
 RUN mkdir -p /var/run/gunicorn
 ARG WSGI_UNIX_SOCKET
-CMD ["gunicorn", "$DJANGO_PROJECT_NAME.wsgi", "--bind=unix:$WSGI_UNIX_SOCKET:$NAIVE_APP_HTTP_PORT"]
+# CMD ["gunicorn", "$DJANGO_PROJECT_NAME.wsgi", "--bind=unix:$WSGI_UNIX_SOCKET:$NAIVE_APP_HTTP_PORT"]
+CMD ["python", "-u", "manage.py", "runserver", "8000"]

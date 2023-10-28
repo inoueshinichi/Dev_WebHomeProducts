@@ -69,8 +69,8 @@ http {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             
-            #proxy_pass {{APP_HTTP_SERVER}};
-            proxy_pass http://gunicorn-django;
+            proxy_pass {{APP_HTTP_SERVER}};
+            #proxy_pass http://gunicorn-django;
         }
 
         error_page 404 /404.html;
