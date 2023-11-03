@@ -33,6 +33,10 @@ Web/API Server on home for various my application
 ## 目的
 + 様々なアウトプット基盤の構築
 + アウトプットドリブンによるインプットの質を上げる
++ 認証系・暗号系の理解
++ DB/SQLの理解
++ AWS/Azure等のクラウド環境との連携を理解
++ ゆくゆくは, WebAPIを独立させてMobileに展開予定
 
 ## ロードマップ
 | マイルストン | 内容 | 達成状況 |
