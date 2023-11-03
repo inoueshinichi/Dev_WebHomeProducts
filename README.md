@@ -1,2 +1,15 @@
 # Dev_WebHomeProducts
-自宅サーバー for 様々なプロダクト
+各アプリのアップロード展開用サーバ
+
+## Requirements
++ Python
++ Django
++ Node.js
++ TypeScript
++ React
++ Flask
++ FIDO
++ OAuth
++ Open Connect ID
++ SSL
++ 
