@@ -13,9 +13,11 @@ Web/API Server on home for various my application
 + Django
 + React
 + Flask
-+ FIDO
-+ OAuth
-+ Open Connect ID
++ Google Authenticator(SSO)
++ FIDO(公開鍵基盤を用いた生体情報認証)
++ OAuth(認可サーバとアクセストークンによる認可用API作成)
++ Open Connect ID(要調査)
++ SAML (for クラウド)
 + PostgreSQL
 + Nginx
 + Let's Encript
@@ -45,7 +47,7 @@ Web/API Server on home for various my application
 | 8合目 | メインホーム画面のUI設計&実装 | - |
 | 9合目 | RDBSQL(PostgreSQL)の設計&実装 (テーブル, Column定義, 正規化) | - |
 | 10合目 | ユーザーID, クレデンシャル属性の設計 | - |
-| 10合目 | 識別・認証・認可 (パスワード+ワンタイムパスワード認証, FIDO認証, OAuth, Open Conect ID)の実装 | - |
+| 10合目 | 識別・認証・認可 (パスワード+ワンタイムパスワード認証, Google Authenticator, FIDO認証, OAuth, Open Conect ID)の実装 | - |
 | 8合目 | アカウント設定機能実装 | - |
 | 9合目 | 日記機能実装 | - |
 | 10合目 | Wiki機能実装 | - |
