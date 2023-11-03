@@ -3,6 +3,22 @@
 Web/API Server on home for various my application
 
 ## 参考
++ Docker
++ Python
++ JavaScript
++ TypeScript
++ Node.js
++ Django
++ React
++ Flask
++ FIDO
++ OAuth
++ Open Connect ID
++ PostgreSQL
++ Nginx
++ Let's Encript
++ Certbot
+
 
 ## 背景
 + 散々しているアプリや技術を整理する場としてアウトプット基盤が必要.
@@ -10,7 +26,6 @@ Web/API Server on home for various my application
 ## 目的
 + 様々なアウトプット基盤の構築
 + アウトプットドリブンによるインプットの質を上げる
-
 
 ## ロードマップ
 | マイルストン | 内容 | 達成状況 |
@@ -90,4 +105,7 @@ Web/API Server on home for various my application
 + 各サービスはFlask/Express等の軽量WebAPIサーバーで実装
 + 自作できないサービスはWebAPI経由で取得.
 + Djangoが提供するhtmlにフロントエンドとしてReactを追加. (要Webpack)
+
+
+# 各サービスごとの機能要件と非機能要件
 
