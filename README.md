@@ -1,6 +1,12 @@
 # Dev_WebHomeProducts
 各アプリのアップロード展開用サーバ
 
+# 背景と目的
+
+# 目標（終了条件)
+
+# スケジュール
+
 ## Requirements
 + Python
 + Django
