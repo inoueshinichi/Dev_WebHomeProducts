@@ -4,6 +4,8 @@ Web/API Server on home for various my application
 
 ## 参考
 + Docker
++ Ansible
++ Github Action
 + Python
 + JavaScript
 + TypeScript
@@ -18,6 +20,9 @@ Web/API Server on home for various my application
 + Nginx
 + Let's Encript
 + Certbot
+
+## 開発方式
++ Docker, Github, GithubAction, AnsibleによるCI/CDで行う
 
 
 ## 背景
@@ -99,6 +104,9 @@ Web/API Server on home for various my application
 25. FIND
 26. OAuth
 27. Open Connect ID
+28. Docker
+29. Ansible
+30. Github Action
 
 ## 基本方針
 + 基幹Backendは, Djangoで開発
