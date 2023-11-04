@@ -4,8 +4,11 @@ Web/API Server on home for various my application
 
 ## 参考
 + Docker
++ DockerHub
 + Ansible
++ Github
 + Github Action
++ Kubernets(k8s)
 + Python
 + JavaScript
 + TypeScript
@@ -24,15 +27,16 @@ Web/API Server on home for various my application
 + Certbot
 
 ## 開発方式
-+ Docker, Github, GithubAction, AnsibleによるCI/CDで行う
-
++ CI/CD
++ イケイケベンチャー系
 
 ## 背景
-+ 散々しているアプリや技術を整理する場としてアウトプット基盤が必要.
++ 自己管理している散々アプリや技術を整理する場としてアウトプット基盤が必要.
 
 ## 目的
 + 様々なアウトプット基盤の構築
 + アウトプットドリブンによるインプットの質を上げる
++ CI/CDの実践
 + 認証系・暗号系の理解
 + DB/SQLの理解
 + AWS/Azure等のクラウド環境との連携を理解
@@ -48,17 +52,18 @@ Web/API Server on home for various my application
 | 5合目 | GunicornのDjangoへのバインディング | 実行中 |
 | 6合目 | Djangoの静的ファイル(html)にTypeScriptでコードしたReactをWebpackのバンドルコードを付与する(フロントエンド) ReactはGoLiveでデバッグ | - |
 | 7合目 | NginxのLet's EncriptによるHTTPS化を強制 | 実行中 |
-| 8合目 | メインホーム画面のUI設計&実装 | - |
-| 9合目 | RDBSQL(PostgreSQL)の設計&実装 (テーブル, Column定義, 正規化) | - |
-| 10合目 | ユーザーID, クレデンシャル属性の設計 | - |
-| 10合目 | 識別・認証・認可 (パスワード+ワンタイムパスワード認証, Google Authenticator, FIDO認証, OAuth, Open Conect ID)の実装 | - |
-| 8合目 | アカウント設定機能実装 | - |
-| 9合目 | 日記機能実装 | - |
-| 10合目 | Wiki機能実装 | - |
-| 11合目 | 各サービス画面UIの設計実装 | - |
-| 12合目 | 各サービス要WebAPIサーバの設計 | - |
-| 13合目 | OAuthによる認可機能をAPIサーバに組み込む | - |
-+ 残りは, 各サービスに応じて11合目, 12合目, 13合目を繰り返す.
+| 8合目 | k8s用コード作成 & Ansibleによる稼働リモートホストへの自動展開 |
+| 9合目 | メインホーム画面のUI設計&実装 | - |
+| 10合目 | RDBSQL(PostgreSQL)の設計&実装 (テーブル, Column定義, 正規化) | - |
+| 11合目 | ユーザーID, クレデンシャル属性の設計 | - |
+| 12合目 | 識別・認証・認可 (パスワード+ワンタイムパスワード認証, Azure EntraIDとの連携)の実装 | - |
+| 13合目 | アカウント設定機能実装 | - |
+| 14合目 | 日記機能実装 | - |
+| 15合目 | Wiki機能実装 | - |
+| 16合目 | 各サービス画面UIの設計実装 | - |
+| 17合目 | 各サービス要WebAPIサーバの設計 | - |
+| 18合目 | OAuthによる認可機能をAPIサーバに組み込む | - |
++ 残りは, 各サービスに応じてWebAPIコンテナ, WebUIの設計, アプリ内ルーティング設定を繰り返す.
 
 ## 機能要件
 + リバースプロキシ-の導入
@@ -107,17 +112,19 @@ Web/API Server on home for various my application
 22. ts-lint: 4.5.1
 23. Nginx
 24. Let's Encrypt (Certbot)
-25. FIND
+25. (FIND)
 26. OAuth
-27. Open Connect ID
+27. (Open Connect ID)
 28. Docker
 29. Ansible
 30. Github Action
+31. DockerHub
 
 ## 基本方針
 + 基幹Backendは, Djangoで開発
 + 各サービスはFlask/Express等の軽量WebAPIサーバーで実装
-+ 自作できないサービスはWebAPI経由で取得.
++ マイクロサービスアプリを基本にWebAPIで機能追加
++ 自作できないサービスはバグリッククラウドのWebAPI経由で取得.
 + Djangoが提供するhtmlにフロントエンドとしてReactを追加. (要Webpack)
 
 
