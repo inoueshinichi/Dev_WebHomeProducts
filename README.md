@@ -17,13 +17,13 @@ Web/API Server on home for various my application
 + React
 + Flask
 + Google Authenticator(SSO)
-+ FIDO(公開鍵基盤を用いた生体情報認証)
++ FIDO(公開鍵基盤を用いた生体情報認証) ※ 課金必要なやらない
 + OAuth(認可サーバとアクセストークンによる認可用API作成)
 + Open Connect ID(要調査)
-+ SAML (for クラウド)
++ SAML (for クラウド) ※ 要検討(勉強レベル)
 + PostgreSQL
 + Nginx
-+ Let's Encript
++ Let's Encript(SSL証明書 CA)
 + Certbot
 
 ## 開発方式
