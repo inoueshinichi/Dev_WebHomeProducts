@@ -38,6 +38,10 @@ http {
     # ファイル一覧を有効化
     # autoindex on;
 
+    upstream unix_socket {
+        server unix:{{WSGI_UNIX_SOCKET_FILE}};
+    }
+
     server {
         server_name  {{CONTAINER_WEB_DOMAIN}} {{ENTRYPOINT_HOST_WEB_DOMAIN}};
         listen       {{CONTAINER_WEB_HTTP_PORT}}; # IPv4
@@ -68,7 +72,7 @@ http {
             proxy_redirect off;
 
             # UNIXソケットでGunicornと通信
-            proxy_pass unix:{{WSGI_UNIX_SOCKET_FILE}}/;
+            proxy_pass http://unix_socket/;
             
             # TCPソケットでGunicornと通信
             #proxy_pass http://gunicorn_with_tcp_socket/;
