@@ -28,7 +28,7 @@ services:
       - app_server
     ports:
       - ${HOST_WEB_HTTP_PORT}:${CONTAINER_WEB_HTTP_PORT}
-      - ${HOST_WEB_HTTP_PORT}:${CONTAINER_WEB_HTTPS_PORT}
+      - ${HOST_WEB_HTTPS_PORT}:${CONTAINER_WEB_HTTPS_PORT}
     networks:
       - home_products_net
     volumes:
