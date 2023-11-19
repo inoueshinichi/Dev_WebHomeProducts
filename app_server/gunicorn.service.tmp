@@ -1,0 +1,19 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+PIDFile={{GUNICORN_RUN_DIR}}/PIDFile
+User={{GUNICORN_SERVICE_USER}}
+Group={{GUNICORN_SERVICE_GROUP}}
+WorkingDirectory={{DJANGO_PROJECT_DIRECTORY}}/{{home_products}}
+ExecStart=/usr/local/bin/gunicorn --pid {{GUNICORN_RUN_DIR}}/pid \
+    --bind {{HOST_WEB_DOMAIN}}:{{EXPORT_APP_HTTP_PORT}} \
+    {{DJANGO_PROJECT_NAME}}.wsgi
+ExecReload=/bin/kill -s HUP {{GUNICORN_PID}}
+ExeStop=/bin/kill -s TERM {{GUNICORN_PID}}
+PrivateTmp=true
+
+[Install]
+WantedBy=multi.user.target
+

@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # アプリケーションに関する設定を追加
+    'entrance.apps.EntranceConfig',
 ]
 
 MIDDLEWARE = [

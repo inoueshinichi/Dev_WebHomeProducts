@@ -38,11 +38,6 @@ http {
     # ファイル一覧を有効化
     # autoindex on;
 
-    # UNIXソケットでGunicornと通信
-    upstream gunicorn-django {
-        server unix:///var/run/gunicorn/gunicorn.sock;
-    }
-
     server {
         
         server_name  home.tiny-tank.jp;
@@ -55,22 +50,20 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
+        root /usr/share/nginx/html;
+
         location / {
-            root /usr/share/nginx/html;
-            index index.html;
-        }
-
-        location /home {
-            try_files $uri @gunicorn;
-        }
-
-        location @gunicorn {
             proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_redirect off;
             
-            #proxy_pass {{APP_HTTP_SERVER}};
-            proxy_pass http://gunicorn-django;
+            # UNIXソケットでGunicornと通信
+            #proxy_pass unix:///var/run/gunicorn/gunicorn.sock;
+            # TCPソケットでGunicornと通信
+            proxy_pass http://app_server:8000;
         }
 
         error_page 404 /404.html;
