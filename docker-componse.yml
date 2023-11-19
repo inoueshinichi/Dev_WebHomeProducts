@@ -15,7 +15,6 @@ services:
     container_name: hp_nginx_web_srv_con
     environment:
       EMAIL: ${EMAIL}
-      EXTERNAL_HOST_WEB_DOMAIN: ${EXTERNAL_HOST_WEB_DOMAIN}
       HOST_WEB_DOMAIN: ${HOST_WEB_DOMAIN}
       NAIVE_APP_HTTP_PORT: ${NAIVE_APP_HTTP_PORT}
       HOST_APP_DOMAIN: ${HOST_APP_DOMAIN}
