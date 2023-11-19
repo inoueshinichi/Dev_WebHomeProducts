@@ -66,7 +66,7 @@ http {
             # UNIXソケットでGunicornと通信
             #proxy_pass http://unix_socket_to_gunicorn;
             # TCPソケットでGunicornと通信
-            proxy_pass http://{{HOST_APP_DOMAIN}}:{{EXPORT_APP_HTTP_PORT}};
+            proxy_pass http://{{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
         }
 
         error_page 404 /404.html;
