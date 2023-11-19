@@ -84,8 +84,9 @@ http {
             #proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}/;
 
             # アクセスのたびにホストの名前解決を行う(Mac-Docker-Desktopでは, 不可だが本番はこの記述.)
-            set $app_entrance {{CONTAINER_APP_DOMAIN}};
-            proxy_pass http://$app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
+            #set $app_entrance {{CONTAINER_APP_DOMAIN}};
+            #proxy_pass http://$app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
+            proxy_pass http://{{CONTAINER_APP_DOMAIN}}:{{CONTAINER_APP_HTTP_PORT}}/;
         }
 
         error_page 404 /404.html;
