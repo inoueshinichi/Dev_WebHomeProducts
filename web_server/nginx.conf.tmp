@@ -43,11 +43,6 @@ http {
     #    server unix:{{WSGI_UNIX_SOCKET_FILE}} fail_timeout=0;
     #}
 
-    # Gunicorn with tcp socket
-    #upstream gunicorn_with_tcp_socket {
-    #    server {{CONTAINER_APP_DOMAIN}}:{{CONTAINER_HTTP_PORT}} fail_timeout=0;
-    #}
-
     server {
         server_name  {{CONTAINER_WEB_DOMAIN}} {{ENTRYPOINT_HOST_WEB_DOMAIN}};
         listen       {{CONTAINER_WEB_HTTP_PORT}}; # IPv4
@@ -68,8 +63,8 @@ http {
         #   try_files $uri @proxy_to_app;
         #}
         
-        # Gunicorn - Django
-        #location @proxy_to_app {
+        # Nginxをリバースプロキシーとして使用する. 転送先は, Gunicorn-Djangoコンテナ
+        # Gunicorn-Djangoコンテナへの通信は, 一度ホストの名前解決(host.docker.internal)と公開ポートを経由して行う.
         location / {
             proxy_set_header Host $http_host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -77,16 +72,20 @@ http {
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_redirect off;
 
-            # アクセスのたびにホストの名前解決を行う
-            #set $app_entrance {{CONTAINER_APP_DOMAIN}};
-
             # UNIXソケットでGunicornと通信
             #proxy_pass http://unix_socket_to_gunicorn/;
             
             # TCPソケットでGunicornと通信
             #proxy_pass http://gunicorn_with_tcp_socket/;
             #proxy_pass  $app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
-            proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}/;
+
+            # どうやらMac-Docker-Desktop固有らしい
+            # 通常は, http://[コンテナ名]:[コンテナポート]/; でOK
+            #proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}/;
+
+            # アクセスのたびにホストの名前解決を行う(Mac-Docker-Desktopでは, 不可だが本番はこの記述.)
+            set $app_entrance {{CONTAINER_APP_DOMAIN}};
+            proxy_pass http://$app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
         }
 
         error_page 404 /404.html;
