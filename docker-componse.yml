@@ -27,8 +27,8 @@ services:
     depends_on:
       - app_server
     ports:
-      - ${HOST_WEB_HTTP_PORT}:${WEB_HTTP_PORT}
-      - ${HOST_WEB_HTTP_PORT}:${WEB_HTTPS_PORT}
+      - ${HOST_WEB_HTTP_PORT}:${CONTAINER_WEB_HTTP_PORT}
+      - ${HOST_WEB_HTTP_PORT}:${CONTAINER_WEB_HTTPS_PORT}
     networks:
       - home_products_net
     volumes:
