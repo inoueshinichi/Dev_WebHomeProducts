@@ -72,7 +72,7 @@ http {
             proxy_redirect off;
 
             # UNIXソケットでGunicornと通信
-            proxy_pass http://unix_socket/;
+            #proxy_pass http://unix_socket/;
             
             # TCPソケットでGunicornと通信
             #proxy_pass http://gunicorn_with_tcp_socket/;
@@ -83,7 +83,7 @@ http {
             #proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}/;
 
             # ホストの名前解決を行う(本番はこの記述.)
-            #proxy_pass http://{{CONTAINER_APP_DOMAIN}}:{{CONTAINER_APP_HTTP_PORT}}/;
+            proxy_pass http://{{CONTAINER_APP_DOMAIN}}:{{CONTAINER_APP_HTTP_PORT}}/;
         }
 
         error_page 404 /404.html;
