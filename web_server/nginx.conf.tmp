@@ -86,7 +86,7 @@ http {
             # TCPソケットでGunicornと通信
             #proxy_pass http://gunicorn_with_tcp_socket/;
             #proxy_pass  $app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
-            proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}};
+            proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}/;
         }
 
         error_page 404 /404.html;
