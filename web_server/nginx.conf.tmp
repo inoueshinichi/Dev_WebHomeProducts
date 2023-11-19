@@ -40,7 +40,7 @@ http {
 
     # UnixソケットをURLとして扱う
     upstream unix_socket_to_gunicorn {
-        server unix:{{WSGI_UNIX_SOCKET_FILE}}
+        server unix:{{WSGI_UNIX_SOCKET_FILE}};
     }
 
     server {
