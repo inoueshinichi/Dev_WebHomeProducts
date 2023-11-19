@@ -16,11 +16,12 @@ services:
     environment:
       EMAIL: ${EMAIL}
       HOST_WEB_DOMAIN: ${HOST_WEB_DOMAIN}
+      EXPORT_APP_HTTP_PORT: ${EXPORT_APP_HTTP_PORT}
       HOST_APP_DOMAIN: ${HOST_APP_DOMAIN}
       NAIVE_WEB_HTTP_PORT: ${NAIVE_WEB_HTTP_PORT}
       NAIVE_WEB_HTTPS_PORT: ${NAIVE_WEB_HTTPS_PORT}
       MAX_REQUEST_BODY_SIZE: ${MAX_REQUEST_BODY_SIZE}
-      WSGI_UNIX_SOCKET: ${WSGI_UNIX_SOCKET}
+      WSGI_UNIX_SOCKET_FILE: ${WSGI_UNIX_SOCKET_FILE}
     # restart: unless-stopped
     depends_on:
       - app_server
@@ -34,7 +35,7 @@ services:
       - ./web_server/html:/usr/share/nginx/html
       - ./web_server/diagnostic/nginx/nginx.conf.log:/etc/nginx/nginx.conf
       - ./web_server/diagnostic/letsencrypt:/etc/letsencrypt
-      - gunicorn:${GUNICORN_BIND_DIR}
+      - gunicorn:${WSGI_UNIX_SOCKET_DIR}
 
   app_server:
     build: 
@@ -43,16 +44,18 @@ services:
       args:
         - NAIVE_APP_HTTP_PORT=${NAIVE_APP_HTTP_PORT}
         - APP_STOPSIGNAL=${APP_STOPSIGNAL}
-        - WSGI_UNIX_SOCKET=${WSGI_UNIX_SOCKET}
+        - WSGI_UNIX_SOCKET_FILE=${WSGI_UNIX_SOCKET_FILE}
         - DJANGO_PROJECT_DIRECTORY=${DJANGO_PROJECT_DIRECTORY}
         - DJANGO_PROJECT_NAME=${DJANGO_PROJECT_NAME}
     image: ${DHUB_USER}/hp_app_srv:${APP_SRV_IMG_VER}
     container_name: hp_app_srv_con
-    command: /bin/sh -c "tail -f /dev/null"
-    # command: python ${DJANGO_PROJECT_DIRECTORY}/${DJANGO_PROJECT_NAME}/manage.py runserver 8000
+    # command: /bin/sh -c "tail -f /dev/null"
+    # command: python ${DJANGO_PROJECT_DIRECTORY}/${DJANGO_PROJECT_NAME}/manage.py runserver 0.0.0.0:8000
     tty: true
     environment:
       EMAIL: ${EMAIL}
+      HOST_WEB_DOMAIN: ${HOST_WEB_DOMAIN}
+      EXPORT_APP_HTTP_PORT: ${EXPORT_APP_HTTP_PORT}
       HOST_DB_DOMAIN: ${HOST_DB_DOMAIN}
       EXPORT_DB_PORT: ${EXPORT_DB_PORT}
       DB_USER: ${DB_USER}
@@ -60,6 +63,7 @@ services:
       DJANGO_PROJECT_DIRECTORY: ${DJANGO_PROJECT_DIRECTORY}
       DJANGO_PROJECT_NAME: ${DJANGO_PROJECT_NAME}
       DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+      WSGI_UNIX_SOCKET_FILE: ${WSGI_UNIX_SOCKET_FILE}
     # restart: unless-stopped
     ports:
       - ${EXPORT_APP_HTTP_PORT}:${NAIVE_APP_HTTP_PORT}
@@ -68,7 +72,7 @@ services:
     volumes:
       # Binding
       - ./app_server/src:/home_products_app
-      - gunicorn:${GUNICORN_BIND_DIR}
+      - gunicorn:${WSGI_UNIX_SOCKET_DIR}
 
 
 networks:
