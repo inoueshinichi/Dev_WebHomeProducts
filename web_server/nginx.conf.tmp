@@ -61,7 +61,7 @@ http {
             proxy_redirect off;
             
             # UNIXソケットでGunicornと通信
-            proxy_pass unix://{{WSGI_UNIX_SOCKET_FILE}};
+            proxy_pass unix:/{{WSGI_UNIX_SOCKET_FILE}};
             # TCPソケットでGunicornと通信
             #proxy_pass http://{{HOST_APP_DOMAIN}}:{{EXPORT_APP_HTTP_PORT}};
         }
