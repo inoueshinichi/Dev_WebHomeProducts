@@ -6,6 +6,7 @@ echo "[Check \$CONTAINER_WEB_HTTPS_PORT] $CONTAINER_WEB_HTTPS_PORT"
 echo "[Check \$MAX_REQUEST_BODY_SIZE] $MAX_REQUEST_BODY_SIZE"
 echo "[Check \$WSGI_UNIX_SOCKET_FILE] $WSGI_UNIX_SOCKET_FILE"
 echo "[Check \$CONTAINER_APP_DOMAIN] $CONTAINER_APP_DOMAIN"
+echo "[Check \$CONTAINER_APP_HTTP_PORT] $CONTAINER_APP_HTTP_PORT"
 echo "[Check \$HOST_APP_HTTP_PORT] $HOST_APP_HTTP_PORT"
 echo "[Check \$ENTRYPOINT_HOST_WEB_DOMAIN] $ENTRYPOINT_HOST_WEB_DOMAIN"
 
@@ -16,8 +17,9 @@ sed -e "s/{{CONTAINER_WEB_HTTPS_PORT}}/$CONTAINER_WEB_HTTPS_PORT/g" /etc/nginx/n
 sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
 sed -e "s^{{WSGI_UNIX_SOCKET_FILE}}^$WSGI_UNIX_SOCKET_FILE^g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf.tmp5
 sed -e "s^{{CONTAINER_APP_DOMAIN}}^$CONTAINER_APP_DOMAIN^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf.tmp6
-sed -e "s^{{HOST_APP_HTTP_PORT}}^$HOST_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf.tmp7
-sed -e "s^{{ENTRYPOINT_HOST_WEB_DOMAIN}}^$ENTRYPOINT_HOST_WEB_DOMAIN^g" /etc/nginx/nginx.conf.tmp7 > /etc/nginx/nginx.conf
+sed -e "s^{{CONTAINER_APP_HTTP_PORT}}^$CONTAINER_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf.tmp7
+sed -e "s^{{HOST_APP_HTTP_PORT}}^$HOST_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp7 > /etc/nginx/nginx.conf.tmp8
+sed -e "s^{{ENTRYPOINT_HOST_WEB_DOMAIN}}^$ENTRYPOINT_HOST_WEB_DOMAIN^g" /etc/nginx/nginx.conf.tmp8 > /etc/nginx/nginx.conf
     
 
 # Let's EncryptでSSL証明書(デジタル署名＋公開鍵)を発行. CertbotコマンドによるSSL証明書を取得. 
