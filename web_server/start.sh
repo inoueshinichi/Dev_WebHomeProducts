@@ -1,17 +1,24 @@
 #!/bin/bash
 
+echo "[Check \$HOST_WEB_DOMAIN] $HOST_WEB_DOMAIN"
+echo "[Check \$NAIVE_WEB_HTTP_PORT] $NAIVE_WEB_HTTP_PORT"
+echo "[Check \$NAIVE_WEB_HTTPS_PORT] $NAIVE_WEB_HTTPS_PORT"
+echo "[Check \$MAX_REQUEST_BODY_SIZE] $MAX_REQUEST_BODY_SIZE"
+echo "[Check \$WSGI_UNIX_SOCKET_FILE] $WSGI_UNIX_SOCKET_FILE"
+echo "[Check \$HOST_APP_DOMAIN] $HOST_APP_DOMAIN"
+echo "[Check \$EXPORT_APP_HTTP_PORT] $EXPORT_APP_HTTP_PORT"
+
 # NginxのWebサーバ設定からリバースプロキシーサーバ設定への変更(-i オプションで上書きコマンドをすると2つ目以降の置換が反映されない. なぜ)
 sed -e "s/{{HOST_WEB_DOMAIN}}/$HOST_WEB_DOMAIN/g" /etc/nginx/nginx.conf.tmp > /etc/nginx/nginx.conf.tmp1
-# echo "[Check \$HOST_WEB_DOMAIN] $HOST_WEB_DOMAIN"
 sed -e "s/{{NAIVE_WEB_HTTP_PORT}}/$NAIVE_WEB_HTTP_PORT/g" /etc/nginx/nginx.conf.tmp1 > /etc/nginx/nginx.conf.tmp2
-# echo "[Check \$NAIVE_WEB_HTTP_PORT] $NAIVE_WEB_HTTP_PORT"
 sed -e "s/{{NAIVE_WEB_HTTPS_PORT}}/$NAIVE_WEB_HTTPS_PORT/g" /etc/nginx/nginx.conf.tmp2 > /etc/nginx/nginx.conf.tmp3
-# echo "[Check \$NAIVE_WEB_HTTPS_PORT] $NAIVE_WEB_HTTPS_PORT"
-sed -e "s^{{WSGI_HTTP_SERVER}}^$WSGI_HTTP_SERVER^g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
-# echo "[Check \$WSGI_HTTP_SERVER] $WSGI_HTTP_SERVER"
-sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf.tmp5
-# echo "[Check \$MAX_REQUEST_BODY_SIZE] $MAX_REQUEST_BODY_SIZE"
-sed -e "s^{{WSGI_UNIX_SOCKET}}^$WSGI_UNIX_SOCKET^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf
+sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
+sed -e "s^{{WSGI_UNIX_SOCKET_FILE}}^$WSGI_UNIX_SOCKET_FILE^g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf.tmp5
+sed -e "s^{{HOST_APP_DOMAIN}}^$HOST_APP_DOMAIN^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf.tmp6
+sed -e "s^{{EXPORT_APP_HTTP_PORT}}^$EXPORT_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf
+    
+
+
 
 
 
