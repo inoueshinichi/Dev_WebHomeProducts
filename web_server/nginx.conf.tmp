@@ -49,7 +49,7 @@ http {
     }
 
     server {
-        server_name  localhost {{HOST_WEB_DOMAIN}} {{EXTERNAL_HOST_WEB_DOMAIN}};
+        server_name  {{HOST_WEB_DOMAIN}} {{EXTERNAL_HOST_WEB_DOMAIN}};
         listen       {{NAIVE_WEB_HTTP_PORT}}; # IPv4
         listen       [::]:{{NAIVE_WEB_HTTP_PORT}}; # IPv6
         charset UTF-8;
@@ -62,7 +62,8 @@ http {
         # もし存在しなければ、Gunicorn/Django へ中継 (proxy) する
         location / {
            root /usr/share/nginx/html;
-           try_files $uri/index.html @gunicorn_with_tcp_socket;
+           #try_files $uri/index.html @gunicorn_with_tcp_socket;
+           try_files $uri @gunicorn_with_tcp_socket;
         }
         
         # Gunicorn - Django
