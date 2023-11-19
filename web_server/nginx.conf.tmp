@@ -73,7 +73,7 @@ http {
             proxy_redirect off;
 
             # UNIXソケットでGunicornと通信
-            proxy_pass http://gunicorn_with_unix_socketn/;
+            proxy_pass http://gunicorn_with_unix_socket/;
             
             # TCPソケットでGunicornと通信
             #proxy_pass http://gunicorn_with_tcp_socket/;
