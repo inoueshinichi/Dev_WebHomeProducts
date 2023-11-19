@@ -63,8 +63,11 @@ http {
 
         # 外部からのリクエストで /usr/share/nginx/html にファイルが存在するかチェック
         # もし存在しなければ、Gunicorn/Django へ中継 (proxy) する
-        try_files $uri @gunicorn_with_tcp_socket;
-
+        location / {
+           try_files $uri/index.html @gunicorn_with_tcp_socket;
+        }
+        
+        # 
         location @gunicorn_with_tcp_socket {
             proxy_set_header Host $http_host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -76,7 +79,9 @@ http {
             #proxy_pass http://unix_socket_to_gunicorn;
             
             # TCPソケットでGunicornと通信
-            proxy_pass http://{{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
+            #proxy_pass http://{{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
+
+            proxy_pass http://gunicorn_with_tcp_socket;
         }
 
         error_page 404 /404.html;
