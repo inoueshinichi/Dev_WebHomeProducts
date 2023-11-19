@@ -44,7 +44,7 @@ http {
     }
 
     server {
-        server_name  {{HOST_WEB_DOMAIN}};
+        server_name  {{EXTERNAL_HOST_WEB_DOMAIN}};
         listen       {{NAIVE_WEB_HTTP_PORT}}; # IPv4
         listen       [::]:{{NAIVE_WEB_HTTP_PORT}}; # IPv6
         charset UTF-8;
