@@ -71,7 +71,7 @@ WORKDIR /$DJANGO_PROJECT_DIRECTORY/$DJANGO_PROJECT_NAME
 RUN mkdir -p /var/run/gunicorn/
 WORKDIR /var/run/gunicorn/
 RUN touch gunicorn.sock
-RUN chmod 777 -p /var/run/gunicorn/gunicorn.sock
+RUN chmod 777  /var/run/gunicorn/gunicorn.sock
 
 # ShellScript
 COPY ./start.sh /usr/local/bin/start.sh
