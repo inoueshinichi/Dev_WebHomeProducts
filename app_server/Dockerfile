@@ -68,10 +68,10 @@ WORKDIR /$DJANGO_PROJECT_DIRECTORY/$DJANGO_PROJECT_NAME
 
 # NginxとDjangoの間は, gunicornとUnixソケットで通信する.
 # https://qiita.com/str416yb/items/7324b99b9f05b9089b80
-RUN mkdir -p /var/run/gunicorn/
-WORKDIR /var/run/gunicorn/
-RUN touch gunicorn.sock
-RUN chmod 777  /var/run/gunicorn/gunicorn.sock
+# RUN mkdir -p /var/run/gunicorn/
+# WORKDIR /var/run/gunicorn/
+# RUN touch gunicorn.sock
+# RUN chmod 777  /var/run/gunicorn/gunicorn.sock
 
 # ShellScript
 COPY ./start.sh /usr/local/bin/start.sh
