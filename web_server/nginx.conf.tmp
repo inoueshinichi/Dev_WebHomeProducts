@@ -44,11 +44,9 @@ http {
     }
 
     server {
-        
         server_name  {{HOST_WEB_DOMAIN}};
         listen       {{NAIVE_WEB_HTTP_PORT}}; # IPv4
         listen       [::]:{{NAIVE_WEB_HTTP_PORT}}; # IPv6
-
         charset UTF-8;
         client_max_body_size {{MAX_REQUEST_BODY_SIZE}}; # 1リクエスト *MBまでを上限に受け取り許可
 
