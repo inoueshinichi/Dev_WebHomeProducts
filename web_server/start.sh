@@ -15,7 +15,7 @@ sed -e "s/{{NAIVE_WEB_HTTPS_PORT}}/$NAIVE_WEB_HTTPS_PORT/g" /etc/nginx/nginx.con
 sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
 sed -e "s^{{WSGI_UNIX_SOCKET_FILE}}^$WSGI_UNIX_SOCKET_FILE^g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf.tmp5
 sed -e "s^{{HOST_APP_DOMAIN}}^$HOST_APP_DOMAIN^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf.tmp6
-sed -e "s^{{EXPORT_APP_HTTP_PORT}}^$EXPORT_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf
+sed -e "s^{{NAIVE_APP_HTTP_PORT}}^$NAIVE_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf
     
 
 
