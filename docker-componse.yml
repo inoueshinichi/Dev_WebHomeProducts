@@ -15,6 +15,7 @@ services:
     container_name: hp_nginx_web_srv_con
     environment:
       EMAIL: ${EMAIL}
+      HOST_APP_HTTP_PORT: ${HOST_APP_HTTP_PORT}
       ENTRYPOINT_HOST_WEB_DOMAIN: ${ENTRYPOINT_HOST_WEB_DOMAIN}
       CONTAINER_WEB_DOMAIN: ${CONTAINER_WEB_DOMAIN}
       CONTAINER_APP_HTTP_PORT: ${CONTAINER_APP_HTTP_PORT}
