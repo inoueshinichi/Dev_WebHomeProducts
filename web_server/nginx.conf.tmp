@@ -83,9 +83,7 @@ http {
             # 通常は, http://[コンテナ名]:[コンテナポート]/; でOK
             #proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}/;
 
-            # アクセスのたびにホストの名前解決を行う(Mac-Docker-Desktopでは, 不可だが本番はこの記述.)
-            #set $app_entrance {{CONTAINER_APP_DOMAIN}};
-            #proxy_pass http://$app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
+            # ホストの名前解決を行う(本番はこの記述.)
             proxy_pass http://{{CONTAINER_APP_DOMAIN}}:{{CONTAINER_APP_HTTP_PORT}}/;
         }
 
