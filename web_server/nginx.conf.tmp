@@ -45,7 +45,7 @@ http {
 
     # Gunicorn with tcp socket
     upstream gunicorn_with_tcp_socket {
-        server         {{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
+        server {{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}} fail_timeout=0;
     }
 
     server {
@@ -58,16 +58,18 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
+        # 静的ファイルのパス
+        root /usr/share/nginx/html;
+
         # 外部からのリクエストで /usr/share/nginx/html にファイルが存在するかチェック
         # もし存在しなければ、Gunicorn/Django へ中継 (proxy) する
         location / {
-           root /usr/share/nginx/html;
-           #try_files $uri/index.html @gunicorn_with_tcp_socket;
-           try_files $uri @gunicorn_with_tcp_socket;
+           #try_files $uri/index.html @proxy_to_app;
+           try_files $uri @proxy_to_app;
         }
         
         # Gunicorn - Django
-        location @gunicorn_with_tcp_socket {
+        location @proxy_to_app {
             proxy_set_header Host $http_host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -78,8 +80,6 @@ http {
             #proxy_pass http://unix_socket_to_gunicorn;
             
             # TCPソケットでGunicornと通信
-            #proxy_pass http://{{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
-
             proxy_pass http://gunicorn_with_tcp_socket;
         }
 
