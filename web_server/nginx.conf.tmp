@@ -38,9 +38,14 @@ http {
     # ファイル一覧を有効化
     # autoindex on;
 
-    # UnixソケットをURLとして扱う
-    upstream unix_socket_to_gunicorn {
+    # Gunicorn with unix socket
+    upstream gunicorn_with_unix_socket {
         server unix:{{WSGI_UNIX_SOCKET_FILE}} fail_timeout=0;
+    }
+
+    # Gunicorn with tcp socket
+    upstream gunicorn_with_tcp_socket {
+        server         {{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
     }
 
     server {
@@ -53,17 +58,22 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
+        # HTML root
         root /usr/share/nginx/html;
 
-        location / {
+        # 外部からのリクエストで /usr/share/nginx/html にファイルが存在するかチェック
+        # もし存在しなければ、Gunicorn/Django へ中継 (proxy) する
+        try_files $uri @gunicorn_with_tcp_socket;
+
+        location @gunicorn_with_tcp_socket {
             proxy_set_header Host $http_host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_redirect off;
 
             # UNIXソケットでGunicornと通信
             #proxy_pass http://unix_socket_to_gunicorn;
-            #proxy_redirect off;
             
             # TCPソケットでGunicornと通信
             proxy_pass http://{{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
