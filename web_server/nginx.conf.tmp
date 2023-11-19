@@ -78,10 +78,10 @@ http {
             proxy_redirect off;
 
             # UNIXソケットでGunicornと通信
-            #proxy_pass http://unix_socket_to_gunicorn;
+            #proxy_pass http://unix_socket_to_gunicorn/;
             
             # TCPソケットでGunicornと通信
-            proxy_pass http://gunicorn_with_tcp_socket;
+            proxy_pass http://gunicorn_with_tcp_socket/;
         }
 
         error_page 404 /404.html;
