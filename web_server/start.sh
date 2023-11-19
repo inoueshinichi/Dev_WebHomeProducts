@@ -50,5 +50,7 @@ sed -e "s^{{EXPORT_APP_HTTP_PORT}}^$EXPORT_APP_HTTP_PORT^g" /etc/nginx/nginx.con
 echo '[Check Nginx configuration file]'
 cat /etc/nginx/nginx.conf
 
+echo "[[[[[Start Nginx]]]]]"
+
 # PID1としてnginxを起動する
 exec nginx -g "daemon off;"

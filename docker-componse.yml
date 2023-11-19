@@ -35,7 +35,7 @@ services:
       - ./web_server/html:/usr/share/nginx/html
       - ./web_server/diagnostic/nginx/nginx.conf.log:/etc/nginx/nginx.conf
       - ./web_server/diagnostic/letsencrypt:/etc/letsencrypt
-      - gunicorn:${WSGI_UNIX_SOCKET_DIR}
+      - gunicorn:${WSGI_UNIX_SOCKET_FILE}
 
   app_server:
     build: 
@@ -72,7 +72,7 @@ services:
     volumes:
       # Binding
       - ./app_server/src:/home_products_app
-      - gunicorn:${WSGI_UNIX_SOCKET_DIR}
+      - gunicorn:${WSGI_UNIX_SOCKET_FILE}
 
 
 networks:
