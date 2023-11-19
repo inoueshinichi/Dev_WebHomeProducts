@@ -35,7 +35,6 @@ EXPOSE $NAIVE_WEB_HTTPS_PORT
 
 
 COPY ./nginx.conf.tmp /etc/nginx/nginx.conf.tmp
-COPY ./html/ /usr/share/nginx/html/
 
 # ShellScript
 COPY ./start.sh /usr/local/bin/start.sh
