@@ -61,10 +61,10 @@ http {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
 
-            proxy_redirect off;
-            
             # UNIXソケットでGunicornと通信
             #proxy_pass http://unix_socket_to_gunicorn;
+            #proxy_redirect off;
+            
             # TCPソケットでGunicornと通信
             proxy_pass http://{{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}};
         }
