@@ -45,13 +45,13 @@ http {
 
     # Gunicorn with tcp socket
     #upstream gunicorn_with_tcp_socket {
-    #    server {{HOST_APP_DOMAIN}}:{{NAIVE_APP_HTTP_PORT}} fail_timeout=0;
+    #    server {{CONTAINER_APP_DOMAIN}}:{{CONTAINER_HTTP_PORT}} fail_timeout=0;
     #}
 
     server {
-        server_name  {{HOST_WEB_DOMAIN}} {{EXTERNAL_HOST_WEB_DOMAIN}};
-        listen       {{NAIVE_WEB_HTTP_PORT}}; # IPv4
-        listen       [::]:{{NAIVE_WEB_HTTP_PORT}}; # IPv6
+        server_name  {{CONTAINER_WEB_DOMAIN}} {{ENTRYPOINT_HOST_WEB_DOMAIN}};
+        listen       {{WEB_HTTP_PORT}}; # IPv4
+        listen       [::]:{{WEB_HTTP_PORT}}; # IPv6
         charset UTF-8;
         client_max_body_size {{MAX_REQUEST_BODY_SIZE}}; # 1リクエスト *MBまでを上限に受け取り許可
 
@@ -78,14 +78,15 @@ http {
             proxy_redirect off;
 
             # アクセスのたびにホストの名前解決を行う
-            set $app_entrance {{HOST_APP_DOMAIN}};
+            #set $app_entrance {{CONTAINER_APP_DOMAIN}};
 
             # UNIXソケットでGunicornと通信
             #proxy_pass http://unix_socket_to_gunicorn/;
             
             # TCPソケットでGunicornと通信
             #proxy_pass http://gunicorn_with_tcp_socket/;
-            proxy_pass  $app_entrance:{{NAIVE_APP_HTTP_PORT}}/;
+            #proxy_pass  $app_entrance:{{CONTAINER_APP_HTTP_PORT}}/;
+            proxy_pass http://host.docker.internal:{{HOST_APP_HTTP_PORT}}};
         }
 
         error_page 404 /404.html;

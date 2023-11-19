@@ -54,8 +54,8 @@ RUN pip install \
 # Install javascript libraries
 
 # Port
-ARG NAIVE_APP_HTTP_PORT
-EXPOSE $NAIVE_APP_HTTP_PORT
+ARG CONTAINER_APP_HTTP_PORT
+EXPOSE $CONTAINER_APP_HTTP_PORT
 
 # Signal
 ARG APP_STOPSIGNAL
@@ -68,8 +68,8 @@ WORKDIR /$DJANGO_PROJECT_DIRECTORY/$DJANGO_PROJECT_NAME
 
 # NginxとDjangoの間は, gunicornとUnixソケットで通信する.
 # https://qiita.com/str416yb/items/7324b99b9f05b9089b80
-RUN mkdir -p /var/run/gunicorn
-ARG WSGI_UNIX_SOCKET_FILE
+# RUN mkdir -p /var/run/gunicorn
+# ARG WSGI_UNIX_SOCKET_FILE
 # CMD ["gunicorn", "$DJANGO_PROJECT_NAME.wsgi", "--bind=unix:$WSGI_UNIX_SOCKET_FILE"]
 # CMD ["gunicorn", "$DJANGO_PROJECT_NAME.wsgi", "--bind=unix:/var/run/gunicorn/gunicorn.sock"]
 # CMD ["gunicorn", "home_products.wsgi", "--bind=unix:/var/run/gunicorn/gunicorn.sock"]

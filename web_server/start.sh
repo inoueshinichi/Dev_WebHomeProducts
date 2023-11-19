@@ -1,27 +1,24 @@
 #!/bin/bash
 
-echo "[Check \$HOST_WEB_DOMAIN] $HOST_WEB_DOMAIN"
-echo "[Check \$NAIVE_WEB_HTTP_PORT] $NAIVE_WEB_HTTP_PORT"
-echo "[Check \$NAIVE_WEB_HTTPS_PORT] $NAIVE_WEB_HTTPS_PORT"
+echo "[Check \$CONTAINER_WEB_DOMAIN] $CONTAINER_WEB_DOMAIN"
+echo "[Check \$CONTAINER_WEB_HTTP_PORT] $CONTAINER_WEB_HTTP_PORT"
+echo "[Check \$CONTAINER_WEB_HTTPS_PORT] $CONTAINER_WEB_HTTPS_PORT"
 echo "[Check \$MAX_REQUEST_BODY_SIZE] $MAX_REQUEST_BODY_SIZE"
 echo "[Check \$WSGI_UNIX_SOCKET_FILE] $WSGI_UNIX_SOCKET_FILE"
-echo "[Check \$HOST_APP_DOMAIN] $HOST_APP_DOMAIN"
-echo "[Check \$EXPORT_APP_HTTP_PORT] $EXPORT_APP_HTTP_PORT"
+echo "[Check \$CONTAINER_APP_DOMAIN] $CONTAINER_APP_DOMAIN"
+echo "[Check \$HOST_APP_HTTP_PORT] $HOST_APP_HTTP_PORT"
+echo "[Check \$ENTRYPOINT_HOST_WEB_DOMAIN] $ENTRYPOINT_HOST_WEB_DOMAIN"
 
 # NginxのWebサーバ設定からリバースプロキシーサーバ設定への変更(-i オプションで上書きコマンドをすると2つ目以降の置換が反映されない. なぜ)
-sed -e "s/{{HOST_WEB_DOMAIN}}/$HOST_WEB_DOMAIN/g" /etc/nginx/nginx.conf.tmp > /etc/nginx/nginx.conf.tmp1
-sed -e "s/{{NAIVE_WEB_HTTP_PORT}}/$NAIVE_WEB_HTTP_PORT/g" /etc/nginx/nginx.conf.tmp1 > /etc/nginx/nginx.conf.tmp2
-sed -e "s/{{NAIVE_WEB_HTTPS_PORT}}/$NAIVE_WEB_HTTPS_PORT/g" /etc/nginx/nginx.conf.tmp2 > /etc/nginx/nginx.conf.tmp3
+sed -e "s/{{CONTAINER_WEB_DOMAIN}}/$CONTAINER_WEB_DOMAIN/g" /etc/nginx/nginx.conf.tmp > /etc/nginx/nginx.conf.tmp1
+sed -e "s/{{CONTAINER_WEB_HTTP_PORT}}/$CONTAINER_WEB_HTTP_PORT/g" /etc/nginx/nginx.conf.tmp1 > /etc/nginx/nginx.conf.tmp2
+sed -e "s/{{CONTAINER_WEB_HTTPS_PORT}}/$CONTAINER_WEB_HTTPS_PORT/g" /etc/nginx/nginx.conf.tmp2 > /etc/nginx/nginx.conf.tmp3
 sed -e "s/{{MAX_REQUEST_BODY_SIZE}}/$MAX_REQUEST_BODY_SIZE/g" /etc/nginx/nginx.conf.tmp3 > /etc/nginx/nginx.conf.tmp4
 sed -e "s^{{WSGI_UNIX_SOCKET_FILE}}^$WSGI_UNIX_SOCKET_FILE^g" /etc/nginx/nginx.conf.tmp4 > /etc/nginx/nginx.conf.tmp5
-sed -e "s^{{HOST_APP_DOMAIN}}^$HOST_APP_DOMAIN^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf.tmp6
-sed -e "s^{{NAIVE_APP_HTTP_PORT}}^$NAIVE_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf.tmp7
-sed -e "s^{{EXTERNAL_HOST_WEB_DOMAIN}}^$EXTERNAL_HOST_WEB_DOMAIN^g" /etc/nginx/nginx.conf.tmp7 > /etc/nginx/nginx.conf
+sed -e "s^{{CONTAINER_APP_DOMAIN}}^$CONTAINER_APP_DOMAIN^g" /etc/nginx/nginx.conf.tmp5 > /etc/nginx/nginx.conf.tmp6
+sed -e "s^{{HOST_APP_HTTP_PORT}}^$HOST_APP_HTTP_PORT^g" /etc/nginx/nginx.conf.tmp6 > /etc/nginx/nginx.conf.tmp7
+sed -e "s^{{ENTRYPOINT_HOST_WEB_DOMAIN}}^$ENTRYPOINT_HOST_WEB_DOMAIN^g" /etc/nginx/nginx.conf.tmp7 > /etc/nginx/nginx.conf
     
-
-
-
-
 
 # Let's EncryptでSSL証明書(デジタル署名＋公開鍵)を発行. CertbotコマンドによるSSL証明書を取得. 
 # nginxは起動していないので、standaloneモードで実行.
