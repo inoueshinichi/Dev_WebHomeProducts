@@ -3,28 +3,7 @@
 Web/API Server on home for various my application
 
 ## 参考
-+ Docker
-+ DockerHub
-+ Ansible
-+ Github
-+ Github Action
-+ Kubernets(k8s)
-+ Python
-+ JavaScript
-+ TypeScript
-+ Node.js
-+ Django
-+ React
-+ Flask
-+ Google Authenticator(SSO)
-+ FIDO(公開鍵基盤を用いた生体情報認証) ※ 課金必要なやらない
-+ OAuth(認可サーバとアクセストークンによる認可用API作成)
-+ Open Connect ID(要調査)
-+ SAML (for クラウド) ※ 要検討(勉強レベル)
-+ PostgreSQL
-+ Nginx
-+ Let's Encript(SSL証明書 CA)
-+ Certbot
++ 
 
 ## 開発方式
 + CI/CD
@@ -86,7 +65,31 @@ Web/API Server on home for various my application
 + [AWS連携]
 
 
-## 非機能要件
+## 非機能要件1
++ Ansible
++ Docker
++ DockerHub
++ Github
++ Github Action
++ Kubernets(k8s)-MiniKube
++ PostgreSQL
++ Python
++ Flask
++ JS/TS
++ Node.js
++ Nginx
++ Django
++ React
++ Certbot
++ Let's Encript(SSL証明書 CA)
++ Google Authenticator(SSO)
++ FIDO(公開鍵基盤を用いた生体情報認証) ※ 課金必要なやらない
++ OAuth(認可サーバとアクセストークンによる認可用API作成)
++ Open Connect ID(要調査)
++ SAML (for クラウド) ※ 要検討(勉強レベル)
+
+
+## 非機能要件2
 1. Python == 3.9.x
 2. Django == 4.2.x LTS
 3. PostgreSQL
@@ -111,20 +114,35 @@ Web/API Server on home for various my application
 22. ts-lint: 4.5.1
 23. Nginx
 24. Let's Encrypt (Certbot)
-25. (FIND)
+25. [FIND]
 26. OAuth
-27. (Open Connect ID)
+27. [Open Connect ID]
 28. Docker
 29. Ansible
 30. Github Action
 31. DockerHub
 
 ## 基本方針
-+ 基幹Backendは, Djangoで開発
-+ 各サービスはFlask/Express等の軽量WebAPIサーバーで実装
-+ マイクロサービスアプリを基本にWebAPIで機能追加
-+ 自作できないサービスはバグリッククラウドのWebAPI経由で取得.
-+ Djangoが提供するhtmlにフロントエンドとしてReactを追加. (要Webpack)
++ K8s/Dockerコンテナによるマイクロサービス方式
++ サイト前面にNginxロードバランサー/リバースプロキシ/証明書による認証
++ 基幹サイトはDjangoで開発. アカウント/ログイン機能を作る.
++ 各サービスのUI(フロントエンド)はReactで開発.
++ 各サービスのバックエンドをFlask/Express等の軽量WebAPIサーバーで実装.
++ 各サービスのバックエンドのは, OAuthによる認可機能を付属させる.
++ 自作できないサービスの一部は, パブリッククラウド(AWSまたはAzurue)の機能を利用する.
+
+# 基幹サイトの要件定義
++ アカウント/ログイン機能
++ 日記機能
++ 日時/カレンダー機能
++ 来場者数表示機能
++ ヘッダーメニュー
++ フッターメニュ-
++ Youtube動画の埋め込み
++ ナビゲーション機能
++ 問い合わせ機能
++ 各種セキュリティ機能
++ 各サービスのギャラリー機能
 
 
 # 各サービスごとの機能要件と非機能要件
