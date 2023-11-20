@@ -6,7 +6,7 @@ Web/API Server on home for various my application
 + 
 
 ## 開発方式
-+ CI/CD
++ DevOps(CI/CD)
 + イケイケベンチャー系
 
 ## 背景
